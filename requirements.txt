@@ -1,0 +1,5 @@
+django
+Pillow
+django-anymail
+django-bootstrap3
+beautifulsoup4
