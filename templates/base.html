@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}FallBack Title{% endblock %} | RiverWatchr</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% load staticfiles %}
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/river.css' %}" />
+  </head>
+  <body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-nav-demo">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        {% if states %}
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rivers<span class="caret"></span></a>
+           <ul class="dropdown-menu">
+             {% for state in states %}
+             <li><a href="/rivers/{{state.abbreviation}}">{{state.name}}</a></li>
+             {% endfor %}
+           </ul>
+         </li>
+         {% endif %}
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'user_admin' %}">My Rivers</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'signup' %}">Signup</a></li>
+        {% endif %}
+      </ul>
+    </div>
+      <div class="collapse navbar-collapse" id="bs-nav-demo">
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+    </nav>
+<div>
+{% block content %}
+{% endblock %}
+</div>
+<section id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <p><a href="/"><i class="fa fa-2x fa-github" aria-hidden="true"></i></a></p>
+      </div>
+      <div class="col-sm-1">
+        <p><a href="/">RiverWatchr</a></p>
+      </div>
+      <div class="col-sm-10">
+      </div>
+    </div>
+  </div>
+</section>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.js"
+      integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+      crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script
+src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+crossorigin="anonymous"></script>
+
+<script src="{% static 'js/river.js' %}"></script>
+
+
+  </body>
+</html>

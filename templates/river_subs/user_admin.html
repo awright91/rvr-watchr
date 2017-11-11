@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Rivers{% endblock %}
+
+{% block content %}
+
+{% load bootstrap3 %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Subscribe:</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-description">
+                <h3 class="modal-rivername"></h3>
+                <h4 class="modal-riverlevel"></h4>
+                <p>Let us know at what water level you would like to trigger a notification:</p>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="hidden" name="riverName" value="" class="hiddenRiverName">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Subscription</button>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Delete This River?</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-description">
+                <h3 class="modal-rivername"></h3>
+                <h4 class="modal-riverlevel"></h4>
+                <p>Are you sure you want to delete this river subscription?</p>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            <input type="hidden" name="riverName" value="" class="hiddenRiverName">
+            <input type="hidden" name="deleteForm" value="deleteForm" class="hiddenRiverName">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Delete Subscription</button>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-header">
+  <h2>Manage Your River Subscriptions</h2>
+</div>
+
+<div class="container">
+<div class="row">
+  {% for sub in subscriptions %}
+  <div class="col-sm-6">
+    <div class="admin-single-subscription {{sub.addedClass}}">
+      <div class="admin-img-container">
+            <img src="{{sub.river.image.url}}" alt="">
+      </div>
+      <div class="admin-single-sub-txt">
+        <h2 class="admin_river_name">{{sub.river}}</h2>
+        <h3>section: {{sub.river.section}}</h3>
+        <p>level: {{sub.river.renderLevel}}</p>
+        <p class="admin_river_level">Trigger-Level: {{sub.RenderTriggerLevel}}</p>
+      </div>
+      <div class="admin-single-sub-btn-container">
+          <p class="admin-single-btn admin-single-update" data-toggle="modal" data-target="#myModal">Update</p>
+          <p class="admin-single-btn admin-single-delete" data-toggle="modal" data-target="#myModal2">Delete</p>
+      </div>
+    </div>
+  </div>
+
+
+  {% endfor %}
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+
+{% endblock %}

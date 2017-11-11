@@ -1,0 +1,15 @@
+<h1>Subscribe to {{river.name}}!</h1>
+
+<h4>{{river.name}} is currently running at {{river.current_level}}.</h4>
+
+<p>Select which level you would like to trigger a notification for this river:</p>
+
+{% if message %}
+  <p>{{message}}</p>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>

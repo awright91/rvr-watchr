@@ -1,0 +1,14 @@
+
+<div>
+  <h1>Email Template!</h1>
+
+  <h2>Hello, {{user}}!</h2>
+
+
+  <h3>Here are yours rivers that are current running:</h3>
+
+  {% for sub in subs %}
+      <h4>{{sub.river}}</h4>
+      <p>{{sub.river.current_level}}</p>
+  {% endfor %}
+</div>

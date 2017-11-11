@@ -1,0 +1,71 @@
+ {% extends 'base.html' %}
+
+{% block title %}Rivers{% endblock %}
+
+{% block content %}
+{% load bootstrap3 %}
+<div class="sub-header">
+      <h1>All Rivers in {{state.name}}</h1>
+</div>
+<div class="container">
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Subscribe to Receive Updates for this River:</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-description">
+                <h3 class="modal-rivername"></h3>
+                <h4 class="modal-riverlevel"></h4>
+                <p>Let us know at what water level you would like to trigger a notification:</p>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            {%  bootstrap_form form %}
+            <input type="hidden" name="riverName" value="" class="hiddenRiverName">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <!-- <div class="col-sm-6 col-sm-offset-3"> -->
+
+      {% if message %}
+          <p class="alert {{messageClass}}" role="alert">{{message}}</p>
+      {% endif %}
+
+
+            {% for river in rivers %}
+            <div class="col-sm-3 river-list-col">
+            <div class="single-river">
+              <div class="single-river-img-container">
+                    <img src="{{river.image.url}}" alt="">
+              </div>
+              <h2><a href="{{river.id}}">{{river.name}}</a></h2>
+              <h4>{{river.section}}</h4>
+              <p class="single-level"><strong>Current Level: {{river.renderLevel}}</strong></p>
+              <p class="index-river-summary">{{river.summary}}</p>
+              <button class="list-subscribe-btn btn btn-default" data-toggle="modal" data-target="#myModal">Subscribe</button>
+
+            </div>
+          </div>
+            {% endfor %}
+
+    </div>
+  </div>
+<!-- </div> -->
+
+<br>
+<br>
+
+
+{% endblock %}

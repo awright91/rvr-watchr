@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <h1>Sign Up for RiverWatchr</h1>
+      <h5>Sign up to receive notifications when your favorite rivers have reached the perfect level to paddle.</h5>
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+          <input type="submit" class="btn btn-default" name="" value="Sign Up">
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+{% endblock %}
